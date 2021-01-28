@@ -1,0 +1,3 @@
+D:/Programming/programs/magic/unicode/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/Programming/programs/magic/unicode/cmake-build-debug/CMakeFiles/unicode.dir
+D:/Programming/programs/magic/unicode/cmake-build-debug/CMakeFiles/rebuild_cache.dir
