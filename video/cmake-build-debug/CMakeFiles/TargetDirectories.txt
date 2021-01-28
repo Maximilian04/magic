@@ -1,3 +1,0 @@
-D:/Programming/programs/magic/video/cmake-build-debug/CMakeFiles/video.dir
-D:/Programming/programs/magic/video/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/Programming/programs/magic/video/cmake-build-debug/CMakeFiles/rebuild_cache.dir
