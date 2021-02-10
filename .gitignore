@@ -1,3 +1,6 @@
 video/.idea
 video/cmake-build-debug
 video/cmake-build-release
+unicode/.idea
+unicode/cmake-build-debug
+unicode/cmake-build-release

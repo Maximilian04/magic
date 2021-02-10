@@ -6,6 +6,7 @@
 #define VIDEO_MENU_H
 
 #include <windows.h>
+#include <functional>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -17,10 +18,12 @@ inline COORD coord(short int x, short int y); // conversion int to COORD
 class Menu {
 private:
 	HANDLE handle;
-	//static COORD getSize();
 
-	vector<string> titles;
-	vector<int> values;
+	vector<string> titles; // names of fields
+	vector<int> values; // values of fields
+
+	vector<string> commands; // names of commands
+	vector<fun>
 
 	int inputTitleNum; // -1, if program is waiting for title
 public :
@@ -36,7 +39,7 @@ public :
 
 	int getValue(const string& key);
 
-	void checkInput();
+	void checkInput(bool redraw = 1);
 };
 
 #endif //VIDEO_MENU_H

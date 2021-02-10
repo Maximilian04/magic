@@ -171,7 +171,7 @@ int Menu::getValue(const string& key) {
 	return 0;
 }
 
-void Menu::checkInput() {
+void Menu::checkInput(bool redraw) {
 	while (!cin.eof()) {
 		if (inputTitleNum == -1) {
 			string inputTitle;
@@ -186,7 +186,9 @@ void Menu::checkInput() {
 			cin >> values[inputTitleNum];
 			inputTitleNum = -1;
 		}
-		draw();
+		if (redraw) {
+			draw();
+		}
 	}
 }
 
