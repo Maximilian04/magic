@@ -7,6 +7,7 @@
 #define VIDEO_INCLUDE_H
 
 #include <iostream>
+#include <functional>
 
 #include <opencv2/opencv.hpp>
 

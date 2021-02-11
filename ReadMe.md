@@ -1,4 +1,4 @@
-#**Maximilian's project**
+# Maximilian's project
 
 * *C++* + *OpenCV*
 

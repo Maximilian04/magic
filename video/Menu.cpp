@@ -19,6 +19,10 @@ COORD coord(int x, int y) {
 //	return result->dwSize;
 //}
 
+void Menu::Command::exit(Menu& menu) {
+	menu.setState(Menu::INACTIVE);
+}
+
 void Menu::checkConsole() {
 	//SetConsoleScreenBufferSize(handle, coord(10, 20));
 	CONSOLE_SCREEN_BUFFER_INFO* info = new CONSOLE_SCREEN_BUFFER_INFO;
@@ -83,6 +87,9 @@ void Menu::checkConsole() {
 }
 
 void Menu::draw() {
+	if (state == STATE::INACTIVE) {
+		return;
+	}
 	system("cls");
 	SetConsoleCursorPosition(handle, coord(0, 0));
 
@@ -146,11 +153,29 @@ void Menu::add(const string& key, int value, bool redraw) {
 	values.push_back(value);
 }
 
+void Menu::add(const string& key, function<void(Menu&)> cmd, bool redraw) {
+	for (int i = 0; i < commandNames.size(); ++i) { // todo: change to map
+		if (commandNames[i] == key) {
+			commands[i] = cmd;
+			return;
+		}
+	}
+
+	commandNames.push_back(key);
+	commands.push_back(cmd);
+}
+
 void Menu::del(const string& key, bool redraw) {
 	for (int i = 0; i < titles.size(); ++i) { // todo: change to map
 		if (titles[i] == key) {
 			titles.erase(titles.begin() + i);
 			values.erase(values.begin() + i);
+		}
+	}
+	for (int i = 0; i < commandNames.size(); ++i) { // todo: change to map
+		if (commandNames[i] == key) {
+			commandNames.erase(commandNames.begin() + i);
+			commands.erase(commands.begin() + i);
 		}
 	}
 	draw();
@@ -172,6 +197,9 @@ int Menu::getValue(const string& key) {
 }
 
 void Menu::checkInput(bool redraw) {
+	//if (state == STATE::INACTIVE) {
+	//	return;
+	//}
 	while (!cin.eof()) {
 		if (inputTitleNum == -1) {
 			string inputTitle;
@@ -179,6 +207,12 @@ void Menu::checkInput(bool redraw) {
 			for (int i = 0; i < titles.size(); ++i) { // todo: change to map
 				if (titles[i] == inputTitle) {
 					inputTitleNum = i;
+					break;
+				}
+			}
+			for (int i = 0; i < commandNames.size(); ++i) { // todo: change to map
+				if (commandNames[i] == inputTitle) {
+					(commands[i])(*this);
 					break;
 				}
 			}
@@ -192,7 +226,15 @@ void Menu::checkInput(bool redraw) {
 	}
 }
 
-Menu::Menu() : inputTitleNum(-1) {
+void Menu::setState(Menu::STATE _state) {
+	state = _state;
+}
+
+Menu::STATE Menu::getState() {
+	return state;
+}
+
+Menu::Menu() : inputTitleNum(-1), state(STATE::WAITING_NAME) {
 	setlocale(LC_ALL, "ru_RU.UTF-8"); // to russian letters
 
 	handle = GetStdHandle(STD_OUTPUT_HANDLE); // handle to cout
