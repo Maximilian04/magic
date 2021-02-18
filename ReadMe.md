@@ -13,7 +13,7 @@ Utility for generation symbols for symbols.h.
 
 *For building:*
 
-  use MinGW for ./unicode/CMakeLists.txt
+- use MinGW for ./unicode/CMakeLists.txt
 
 
 
@@ -22,8 +22,8 @@ Main project.
 
 *For building:*
 
-  set OpenCV 4.4.0 on your computer
+- set OpenCV 4.4.0 on your computer
 
-  write down path to OpenCV to ./video/CMakeLists.txt (9, 10 strs)
+- write down path to OpenCV to ./video/CMakeLists.txt (9, 10 strs)
 
-  use MinGW for ./video/CMakeLists.txt
+- use MinGW for ./video/CMakeLists.txt
