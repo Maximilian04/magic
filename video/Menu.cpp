@@ -145,15 +145,21 @@ void Menu::add(const string& key, int value, bool redraw) {
 	for (int i = 0; i < titles.size(); ++i) { // todo: change to map
 		if (titles[i] == key) {
 			values[i] = value;
+			if (redraw) {
+				draw();
+			}
 			return;
 		}
 	}
 
 	titles.push_back(key);
 	values.push_back(value);
+	if (redraw) {
+		draw();
+	}
 }
 
-void Menu::add(const string& key, function<void(Menu&)> cmd, bool redraw) {
+void Menu::add(const string& key, function<void(Menu&)> cmd) {
 	for (int i = 0; i < commandNames.size(); ++i) { // todo: change to map
 		if (commandNames[i] == key) {
 			commands[i] = cmd;
@@ -178,7 +184,9 @@ void Menu::del(const string& key, bool redraw) {
 			commands.erase(commands.begin() + i);
 		}
 	}
-	draw();
+	if (redraw) {
+		draw();
+	}
 }
 
 void Menu::clear() {
@@ -200,30 +208,33 @@ void Menu::checkInput(bool redraw) {
 	//if (state == STATE::INACTIVE) {
 	//	return;
 	//}
-	while (!cin.eof()) {
-		if (inputTitleNum == -1) {
-			string inputTitle;
-			cin >> inputTitle;
-			for (int i = 0; i < titles.size(); ++i) { // todo: change to map
-				if (titles[i] == inputTitle) {
-					inputTitleNum = i;
-					break;
-				}
+	//while () {
+	if (inputTitleNum == -1) {
+		string inputTitle;
+		if (!(cin >> inputTitle)) return;//break;
+		for (int i = 0; i < titles.size(); ++i) { // todo: change to map
+			if (titles[i] == inputTitle) {
+				setState(STATE::WAITING_VALUE);
+				inputTitleNum = i;
+				break;
 			}
-			for (int i = 0; i < commandNames.size(); ++i) { // todo: change to map
-				if (commandNames[i] == inputTitle) {
-					(commands[i])(*this);
-					break;
-				}
+		}
+		for (int i = 0; i < commandNames.size(); ++i) { // todo: change to map
+			if (commandNames[i] == inputTitle) {
+				setState(STATE::WAITING_NAME);
+				(commands[i])(*this);
+				break;
 			}
-		} else {
-			cin >> values[inputTitleNum];
-			inputTitleNum = -1;
 		}
-		if (redraw) {
-			draw();
-		}
+	} else {
+		if (!(cin >> values[inputTitleNum])) return;//break;
+		inputTitleNum = -1;
+		setState(STATE::WAITING_NAME);
 	}
+	if (redraw) {
+		draw();
+	}
+	//}
 }
 
 void Menu::setState(Menu::STATE _state) {

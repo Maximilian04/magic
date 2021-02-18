@@ -28,26 +28,28 @@ public :
 		static void exit(Menu& menu);
 	};
 
-	Menu();
+	Menu(); // state = WAITING_NAME
 	~Menu();
 
 	void checkConsole();
-// todo check all "redraw" implements
+
 	void draw(); // render menu
-	void add(const string& key, int value, bool redraw = 0); // add or replace field
-	void add(const string& key, function<void(Menu&)> cmd, bool redraw = 0); // add or replace command
-	void del(const string& key, bool redraw = 0); // delete field or command
+	void add(const string& key, int value, bool redraw = false); // add or replace field
+	void add(const string& key, function<void(Menu&)> cmd); // add or replace command
+	void del(const string& key, bool redraw = false); // delete field or command
 	void clear(); // delete all fields
 
 	int getValue(const string& key);
 
-	void checkInput(bool redraw = 1);
+	void checkInput(bool redraw = true);
 
-	void setState(STATE _state);
+	void setState(STATE _state); // set state don't think, it's useful
 	STATE getState();
+
 private:
 	HANDLE handle;
 
+public:
 	vector<string> titles; // names of fields
 	vector<int> values; // values of fields
 
@@ -56,7 +58,7 @@ private:
 
 	int inputTitleNum; // -1, if program is waiting for title
 
-	STATE state; //todo check all implements of changing
+	STATE state;
 };
 
 #endif //VIDEO_MENU_H
