@@ -4,12 +4,12 @@
 
 - Utility for merging several different video-threads
 
-- *In process:* working with one video file
+- *I'm working on this project*
 
 
 
-# Unicode:
-Utility for generation symbols for symbols.h.
+## Unicode:
+Utility for generation symbols for symbols.h. (Don't use if you don't know what it is)
 
 *For building:*
 
@@ -17,8 +17,8 @@ Utility for generation symbols for symbols.h.
 
 
 
-# Video:
-Main project.
+## Video:
+Main project. (All working things will be here)
 
 *For building:*
 
