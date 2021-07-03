@@ -11,6 +11,8 @@
 #include <vector>
 #include <string>
 
+#include "Mouse.h"
+
 using namespace std;
 
 inline COORD coord(short int x, short int y); // conversion int to COORD
@@ -26,6 +28,7 @@ public :
 	class Command {
 	public:
 		static void exit(Menu& menu);
+		static void update(Menu& menu);
 	};
 
 	Menu(); // state = WAITING_NAME
@@ -34,12 +37,12 @@ public :
 	void checkConsole();
 
 	void draw(); // render menu
-	void add(const string& key, int value, bool redraw = false); // add or replace field
+	void add(const string& key, string value, bool redraw = false); // add or replace field
 	void add(const string& key, function<void(Menu&)> cmd); // add or replace command
 	void del(const string& key, bool redraw = false); // delete field or command
 	void clear(); // delete all fields
 
-	int getValue(const string& key);
+	string getValue(const string& key);
 
 	void checkInput(bool redraw = true);
 
@@ -51,7 +54,7 @@ private:
 
 public:
 	vector<string> titles; // names of fields
-	vector<int> values; // values of fields
+	vector<string> values; // values of fields
 
 	vector<string> commandNames; // names of commands
 	vector<function<void(Menu&)>> commands; // implementations of commands

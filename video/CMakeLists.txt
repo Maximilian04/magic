@@ -3,7 +3,7 @@ project(video)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(video main.cpp Menu.cpp)
+add_executable(video main.cpp Menu.cpp VideoInput.cpp Transformer.cpp Mouse.cpp)
 
 target_include_directories(video PUBLIC D:/Programming/libraries/opencv-4.4.0/cmake-build-casual/install/include)
 target_link_libraries(video D:/Programming/libraries/opencv-4.4.0/cmake-build-casual/install/x64/mingw/bin/libopencv_world440.dll

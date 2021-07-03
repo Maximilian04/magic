@@ -12,6 +12,9 @@
 #include <opencv2/opencv.hpp>
 
 #include "Menu.h"
+#include "VideoInput.h"
+#include "Transformer.h"
+#include "Mouse.h"
 
 using namespace std;
 using namespace cv;
